@@ -1,0 +1,176 @@
+/* Droid Arabic Kufi */
+
+@font-face {
+    font-family: "Droid Arabic Kufi";
+    src: url(../fonts/droid-arabic-kufi.ttf);
+    font-style: normal;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    font-size: 25px;
+    font-weight: 500;
+}
+
+.site-name {
+    display: inline;
+    vertical-align: top;
+    margin-right: 10px !important;
+}
+
+.logo-admin {
+    width: 30px !important;
+}
+
+#header {
+    background-color: #3a4757;
+    color: #fff;
+}
+
+#branding h1, #branding h1 a:link, #branding h1 a:visited {
+    color: #fff;
+    font-family: "Droid Arabic Kufi";
+    font-size: 18px;
+}
+
+#user-tools {
+    font-size: 14px;
+}
+
+#user-tools a {
+    margin-left: 5px;
+    text-transform: capitalize;
+}
+
+@media(min-width: 768px) {
+    #user-tools a {
+        margin-left: 20px;
+        border-bottom: 0;
+    }
+}
+
+.dashboard #content {
+    width: 70%;
+}
+
+.colMS {
+    margin-right: 0;
+}
+
+table {
+    width: 100%;
+}
+
+.module h2, .module caption, .inline-group h2 {
+    background-color: #3a4757;
+    text-transform: capitalize;
+}
+
+td, th {
+    vertical-align: middle;
+}
+
+tr {
+    height: 40px;
+    /* display         : flex; */
+    /* align-items     : center; */
+    /* justify-content : space-between; */
+}
+
+thead th {
+    background-color: #3a4757;
+}
+
+a:link, a:visited {
+    color: #024075;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+#content-related .actionlist li {
+    line-height: 1.5;
+}
+
+li.addlink {
+    display: flex;
+    flex-direction: column;
+}
+
+li.addlink a, li.deletelink, li.changelink a {
+    position: relative;
+    top: -6px;
+}
+
+li.addlink br {
+    display: none;
+}
+
+/* user page */
+
+.results #result_list thead {
+    background-color: #3a4757;
+}
+
+#changelist table thead th.action-checkbox-column {
+    /* width: auto !important; */
+}
+
+thead th, tfoot td {
+    border-top: 0;
+    border-bottom: 0;
+}
+
+thead th a:link, thead th a:visited {
+    color: #fff;
+}
+
+#changelist table thead th {
+    /* display       : flex;
+    flex-direction: row-reverse; */
+}
+
+thead th.sorted {
+    background-color: #3a4757;
+    color: #fff;
+}
+
+thead th.sortable .text {
+    padding-right: 0;
+    text-transform: capitalize;
+}
+
+thead th.sortable .text a:hover {
+    background-color: #3a4757;
+    color: #fff;
+}
+
+tr .action-checkbox, tr .field-name, tr .field-timestamp {
+    /* border-bottom: 0; */
+}
+
+/* Categories */
+
+.original p:first-of-type {
+    display: none;
+}
+
+.inline-group .tabular tr.has_original td {
+    padding-top: 8px !important;
+}
+
+#company_form thead th {
+    background-color: #f6f6f6;
+}
+
+/* Products */
+
+#changelist-form th .text {
+    color: #fff;
+    text-transform: capitalize;
+    font-size: 15px;
+    font-weight: 500;
+}

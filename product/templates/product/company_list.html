@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load product_tags %}
+
+{% block title %}
+    <title>Companies</title>
+{% endblock title %}
+
+
+{% block nav-product %} 
+    active
+{% endblock nav-product %}
+
+{% block content %}
+
+<div class="companies">
+    <div class="mx-5">
+        <div class="row no-gutters">
+            
+            <!-- Start search-form -->
+            {% include 'product/search_form.html' %}
+            <!-- End search-form -->
+
+            {% if query %}
+                {% if not companies and not categories and not products %}
+                    <h2 class="no-results-msg">لم يتم العثور على أى نتائج...</h2>
+                {% endif%}
+            {% else %}
+                {% if not companies %}
+                    <div class="products col-12">
+                        <div class="row">
+                            <h2 class="no-products-msg">لا توجد منتجات ...</h2>
+                        </div>  
+                    </div>          
+                {% endif%}
+            {% endif %}
+
+            <!-- Start companies -->
+            {% if companies %}
+                {% include 'product/search_company.html' %}
+            {% endif %}
+            <!-- End companies -->
+
+            <!-- Start categories-->
+            {% if categories %}
+                {% include 'product/search_category.html' %}
+            {% endif %}
+            <!-- End categories-->
+
+            
+            <!--Start Products-->
+            {% if products %}
+                {% include 'product/search_product.html' %}
+            {% endif %}
+            <!--End Products-->
+        </div>
+    </div>
+</div>
+
+
+<!--Start Pagination-->
+{% if not query and companies.has_other_pages%}
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+        {% if companies.has_previous %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ companies.previous_page_number }}">السابق</a>
+        </li>
+        {% endif %}
+
+        {% for i in companies.paginator.page_range %}
+            {% if companies.number == i %}
+                <li class="page-item active"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+            {% elif i > companies.number|add:'-3' and i < companies.number|add:'3' %}
+                <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+            {% endif %}
+        {% endfor %}
+
+        {% if companies.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ companies.next_page_number }}">التالى</a>
+            </li>
+        {% endif %}
+    </ul>
+</nav>
+{% elif query and companies.has_other_pages or categories.has_other_pages or products.has_other_pages %}
+    {% include 'product/search_pagination.html' %}
+{% endif %}
+<!--End Pagination-->
+
+{% endblock content%}

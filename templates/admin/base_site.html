@@ -1,0 +1,38 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block title %}{{ title }} {% endblock %}
+
+{% block extrastyle %}
+{{ block.super }}
+<link rel="stylesheet" type="text/css" href="{% static 'css/admin_extra.css' %}" />
+{% endblock %}
+
+{% block branding %}
+<div class="d-flex align-items-center">
+    <h1 id="site-name" class="site-name"><a href="{% url 'admin:index' %}">الكروان</a></h1>
+    <img class="logo-admin" src="{% static 'images/logo.png' %}">
+</div>
+{% endblock %}
+
+{% block welcome-msg %}
+{% endblock %}
+
+{% block userlinks %}
+{% if site_url %}
+<a href="{{ site_url }}">View site</a>
+{% endif %}
+{% if user.is_active and user.is_staff %}
+{% url 'django-admindocs-docroot' as docsroot %}
+{% if docsroot %}
+<a href="{{ docsroot }}">Documentation</a>
+{% endif %}
+{% endif %}
+{% if user.has_usable_password %}
+<a href="{% url 'admin:password_change' %}">Change password</a>
+{% endif %}
+<a href="{% url 'admin:logout' %}">Log out</a>
+{% endblock %}
+
+
+{% block nav-global %}{% endblock %}

@@ -1,0 +1,39 @@
+<div class="col-12">
+    <div class="row no-gutters">
+        <div class="col-12 page-title wow flipInX">
+            <h2>المنتجات</h2>
+        </div>
+        {% for product in products %}
+        <div class="col-12 col-xl-6">
+            <div class="product">
+                <div class="product-img">
+                    <img src="{{ product.image.url }}">
+                </div>
+                <div class="product-data w-100 pl-3 pl-xl-5 py-3">
+                    <h3 class="">
+                        <span class="">الشركة:</span>
+                        <span class="">{{ product.company.name }}</span>
+                    </h3>
+                    <h3 class="">
+                        <span class="">القسم:</span>
+                        <span class="">{{ product.category.name }}</span>
+                    </h3>
+
+                    <h3 class="">
+                        <span class="">اسم المنتج:</span>
+                        <span class="">{{ product.name }}</span>
+                    </h3>
+                    <p class="model">
+                        <span class="">طراز:</span>
+                        <span class="">{{ product.model }}</span>
+                    </p>
+                    <p class="order-code">
+                        <span class="">الكود:</span>
+                        <span class="">{{ product.code }}</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>

@@ -1,0 +1,189 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	{% block title %}
+
+    {% endblock title %}
+	<link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/gif" sizes="16x16">
+	<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+	<link rel="stylesheet" href="{% static 'css/all.min.css' %}" />
+	<link rel="stylesheet" href="{% static 'css/slick.css' %}" />
+	<link rel="stylesheet" href="{% static 'css/slick-theme.css' %}" />
+	<link rel='stylesheet' href="{% static 'css/animate.min.css' %}">
+	<link rel="stylesheet" href="{% static 'css/style.css' %}" />
+</head>
+
+<body>
+	<!-- Loader icon -->
+	<div class="se-pre-con"></div>
+
+	<!-- Start Top Nav -->
+	<header>
+		<div class="container">
+			<div class="d-flex align-items-center justify-content-between">
+				<div class="info-box nav-mail float-right">
+					<div class="icon"><i class="fas fa-envelope"></i></div>
+					<a class="mail" href="mailto:karwan4supply@gmail.com">karwan4supply@gmail.com</a>
+				</div>
+
+				<div class="info-box">
+					<div class="icon"><i class="fas fa-phone"></i></div>
+					<a class="phone">25758246 (02) </a>
+				</div>
+			</div>
+		</div>
+	</header>
+
+
+	<!-- End Top Nav -->
+
+	<!-- Start NavBar -->
+
+	<nav class="navbar navbar-expand-lg navbar-light">
+		<div class="container px-0">
+
+			<a class="navbar-brand" href="index.html">
+				<img class="logo" src="{% static 'images/logo.png' %}">
+				<span class="nav-title">الكروان</span>
+			</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+				aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav">
+					<li class="nav-item {% block nav-home %} {% endblock nav-home %}">
+						<a class="nav-link" href="{% url 'home:home' %}">الصفحة الرئيسية</a>
+					</li>
+					
+					<li class="nav-item {% block nav-about %} {% endblock nav-about %}">
+						<a class="nav-link" href="{% url 'about:about' %}">عن الشركة</a>
+					</li>
+					
+					<li class="nav-item {% block nav-product %} {% endblock nav-product %}">
+						<a class="nav-link" href="{% url 'product:company-list' %}">منتجاتنا</a>
+					</li>
+					
+					<li class="nav-item {% block nav-client %} {% endblock nav-client %}">
+						<a class="nav-link" href="{% url 'client:list' %}">عملاؤنا</a>
+					</li>
+					
+					<li class="nav-item {% block nav-contact %} {% endblock nav-contact %}">
+						<a class="nav-link" href="{% url 'contact:contact' %}">تواصل معنا</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<!-- End NavBar -->
+
+    <!-- Start Content -->
+    {% block content %}
+
+    {% endblock content %}
+    <!-- End Content -->
+
+
+	<!-- Start Footer -->
+
+	<div class="footer">
+		<div class="container">
+			<div class="row">
+				<div class="col-12 col-lg-5 fo-about">
+					<a href="index.html">
+						<img class="footer-logo" src="{% static 'images/logo.png' %}">
+						<span class="company-name">الكروان</span>
+					</a>
+					<p class="fo-about-data">تأسست مجموعة شركات الكروان عام 2015 . وقد نجحت المجموعة فى اختراق سوق التجارة فى جمهورية مصر العربية بهدف توفير حلول شاملة ومتكاملة فى جميع المجالات التى تخص المصانع الانتاجية.</p>
+				</div>
+
+				<div class="col-12 col-lg fo-block">
+					<h5>روابط مباشرة</h5>
+					<ul class="fo-data">
+						<div class="row footer-links">
+							<div class="col-7">
+								<li><a href="{% url 'home:home' %}">الصفحة الرئيسية</a></li>
+								<li><a href="{% url 'product:company-list' %}">منتجاتنا</a></li>
+								<li><a href="{% url 'contact:contact' %}">تواصل معنا</a></li>
+							</div>
+							<div class="col-5">
+								<li><a href="{% url 'about:about' %}">عن الشركة</a></li>
+								<li><a href="{% url 'client:list' %}">عملاؤنا</a></li>
+							</div>
+						</div>
+					</ul>
+
+				</div>
+
+				<div class="col-12 col-lg fo-block">
+					<h5>تواصل معنا</h5>
+					<div class="contact-data fo-data">
+						<p>
+							<i class="fa fa-map-marker"></i>
+							<span>وسط البلد – 15 شارع سليمان الحلبي – سنتر جيلي مول الدور الثالث </span>
+						</p>
+						<p>
+							<i class="fa fa-phone-square"></i>
+							<span>25758246 (02) </span>
+						</p>
+						<p>
+							<a href="mailto:karwan4supply@gmail.com">
+								<i class="fa fa-envelope"></i>
+								<span>karwan4supply@gmail.com</span>
+							</a>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+	</div>
+	<!-- End Footer -->
+
+
+
+		
+	<!-- Start CopyRights -->
+
+	<div class="copyrights">
+		<div class="container">
+			<div class="d-flex align-items-center justify-content-between">
+				<div>
+					<h6>جميع الحقوق محفوظة.
+						<a href="">شركة الكروان</a>
+						&copy; 2020 تصميم
+						<a href="https://www.behance.net/ahmedfateh" target="_blank"> Fateh</a>
+					</h6>
+				</div>
+				<div class="social">
+					<ul class="social-bar">
+						<li class="f-social-icon">
+							<a href="https://www.facebook.com/" target="_blank">
+								<i class="fab fa-facebook-f"></i>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- End CopyRights -->
+
+	<script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+	<script src="{% static 'js/popper.min.js' %}"></script>
+	<script src="{% static 'js/bootstrap.min.js' %}"></script>
+	<script src="{% static 'js/all.min.js' %}"></script>
+	<script src="{% static 'js/wow.min.js' %}"></script>
+	<script src="{% static 'js/slick.min.js' %}"></script>
+	<script src="{% static 'js/script.js' %}"></script>
+
+</body>
+
+
+</html>

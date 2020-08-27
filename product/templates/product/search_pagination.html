@@ -1,0 +1,77 @@
+{% load product_tags %}
+
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+        {% if companies.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="{% relative_url companies.previous_page_number 'page' request.GET.urlencode %}">السابق</a>
+            </li>
+        {% elif categories.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="{% relative_url categories.previous_page_number 'page' request.GET.urlencode %}">السابق</a>
+            </li>
+        {% elif products.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="{% relative_url products.previous_page_number 'page' request.GET.urlencode %}">السابق</a>
+            </li>
+        {% endif %}
+        
+        {% if not companies and not categories and products %}
+            {% get_max products.paginator.num_pages as max_range %}
+        {% elif not companies and categories and products %} 
+            {% get_max categories.paginator.num_pages products.paginator.num_pages as max_range %}
+        {% elif companies and not categories and products %}  
+            {% get_max companies.paginator.num_pages products.paginator.num_pages as max_range %}
+
+        {% elif not companies and categories and not products %}
+            {% get_max categories.paginator.num_pages as max_range %}
+        {% elif companies and categories and not products %}  
+            {% get_max companies.paginator.num_pages categories.paginator.num_pages as max_range %}
+        
+        {% elif companies and not categories and not products %}
+            {% get_max companies.paginator.num_pages as max_range %}
+        {% elif companies and categories and products %}  
+            {% get_max companies.paginator.num_pages categories.paginator.num_pages products.paginator.num_pages as max_range %}
+        {% endif %}
+
+        {% if companies.paginator.num_pages == max_range %}
+            {% for i in companies.paginator.page_range %}
+                {% if companies.number == i %}
+                    <li class="page-item active"><a class="page-link" href="{% relative_url i 'page' request.GET.urlencode %}">{{ i }}</a></li>
+                {% elif i > companies.number|add:'-3' and i < companies.number|add:'3' %}
+                    <li class="page-item"><a class="page-link" href="{% relative_url i 'page' request.GET.urlencode %}">{{ i }}</a></li>
+                {% endif %}
+            {% endfor %}
+        {% elif categories.paginator.num_pages == max_range %}
+            {% for i in categories.paginator.page_range %}
+                {% if categories.number == i %}
+                    <li class="page-item active"><a class="page-link" href="{% relative_url i 'page' request.GET.urlencode %}">{{ i }}</a></li>
+                {% elif i > categories.number|add:'-3' and i < categories.number|add:'3' %}
+                    <li class="page-item"><a class="page-link" href="{% relative_url i 'page' request.GET.urlencode %}">{{ i }}</a></li>
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            {% for i in products.paginator.page_range %}
+                {% if products.number == i %}
+                    <li class="page-item active"><a class="page-link" href="{% relative_url i 'page' request.GET.urlencode %}">{{ i }}</a></li>
+                {% elif i > products.number|add:'-3' and i < products.number|add:'3' %}
+                    <li class="page-item"><a class="page-link" href="{% relative_url i 'page' request.GET.urlencode %}">{{ i }}</a></li>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+
+        {% if companies.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="{% relative_url companies.next_page_number 'page' request.GET.urlencode %}">التالى</a>
+            </li>
+        {% elif categories.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="{% relative_url categories.next_page_number 'page' request.GET.urlencode %}">التالى</a>
+            </li>
+        {% elif products.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="{% relative_url products.next_page_number 'page' request.GET.urlencode %}">التالى</a>
+            </li>
+        {% endif %}
+    </ul>
+</nav>

@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    
+    <title>Contact</title>
+
+{% endblock title %}
+
+{% block nav-contact %} 
+    active
+{% endblock nav-contact %}
+
+{% block content %}
+
+<!-- Start Contact Us -->
+
+<div class="contact">
+    <div class="px-5">
+        <div class="row">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class='message-success'>{{ message }}</div>
+                {% endfor %}  
+            {% else %}
+            <div class="col-12 page-title">
+                <h2>تواصل معنا</h2>
+            </div>
+            <div class="col-12 col-lg-6 contact-block">
+                <h3 class="cont-title"><i class="fas fa-phone-volume"></i>رقم التليفون</h3>
+                <h4 class="cont-data"><i class="fas fa-tty"></i>25758246 (02)</h4>
+                <h4 class="cont-data"><i class="fas fa-mobile-alt"></i>0100970790 (2+)</h4>
+                <h4 class="cont-data"><i class="fas fa-mobile-alt"></i>01275161448 (2+)</h4>
+                <h4 class="cont-data"><i class="fas fa-mobile-alt"></i>01025987892 (2+)</h4>
+                <h3 class="cont-title"><i class="fas fa-envelope"></i>البريد الالكترونى</h3>
+                <h4 class="cont-data"><i class="fas fa-envelope-open-text"></i> karwan4supply@gmail.com</h4>
+                <h3 class="cont-title"><i class="fas fa-map-marker-alt"></i>العنوان</h3>
+                <h4 class="cont-data"><i class="fas fa-map-marked-alt"></i> وسط البلد – 15 شارع سليمان الحلبي – سنتر
+                    جيلي مول الدور الثالث </h4>
+            </div>
+
+            <div class="col-12 col-lg-6">
+                <form class="contact-form" action="{% url 'contact:contact' %}" method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label class="name-label">الاسم<span>*</span></label>
+                        <input class="username form-control" type="text" name="username" required />
+                        <i class="fa fa-user fa-fw"></i>
+                    </div>
+                    <div class="form-group">
+                        <label class="mail-label">البريد الالكترونى <span>*</span></label>
+                        <input class="email form-control" type="email" name="email" required />
+                        <i class="fa fa-envelope fa-fw"></i>
+                    </div>
+                    <div class="form-group">
+                        <label class="subject-label">عنوان الرسالة<span>*</span></label>
+                        <input class="sub form-control" type="text" name="subject"/>
+                        <i class="fa fa-lightbulb fa-fw"></i>
+                    </div>
+                    <div class="form-group">
+                        <label class="messsage-label">موضوع الرسالة<span>*</span></label>
+                        <textarea class="message form-control" name="message" required></textarea>
+                    </div>
+                    <button class="btn send-btn" type="submit">إرسال
+                        <i class="fas fa-paper-plane fa-fw send-icon"></i>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Start Map -->
+
+            <div class="col-12 map">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d3453.375176973418!2d31.245013384916952!3d30.054778581878484!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1z2YjYs9i3INin2YTYqNmE2K8g4oCTIDE1INi02KfYsdi5INiz2YTZitmF2KfZhiDYp9mE2K3ZhNio2Yog4oCTINiz2YbYqtixINis2YrZhNmKINmF2YjZhCDYp9mE2K_ZiNixINin2YTYq9in2YTYqw!5e0!3m2!1sar!2seg!4v1597190955286!5m2!1sar!2seg"
+                    width="100%" height="450" frameborder="0" style="border:0;" allowfullscreen=""
+                    aria-hidden="false" tabindex="0"></iframe>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+
+<!-- End Contact Us -->
+
+{% endblock content %}

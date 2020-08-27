@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load product_tags %}
+
+{% block title %}
+    <title>Products</title>
+{% endblock title %}
+
+
+{% block nav-product %} 
+    active
+{% endblock nav-product %}
+
+{% block content %}
+
+<div class="categories">
+    <div class="px-5">
+        <div class="row no-gutters">
+
+            <!-- Start search-form -->
+            {% include 'product/search_form.html' %}
+            <!-- End search-form -->
+            
+            {% if query %}
+                {% if not companies and not categories and not products %}
+                <h2 class="no-results-msg">لم يتم العثور على أى نتائج...</h2>
+                {% endif%}
+            {% else %}
+                {% if not products %}
+                <div class="products col-12">
+                    <div class="row">
+                        <div class="col-12 page-title">
+                            <h2 class="">{{ category.name }} </h2>
+                        </div>
+                        <h2 class="no-products-msg">لا توجد منتجات فى هذا القسم...</h2>
+                    </div>  
+                </div>          
+                {% endif%}
+            {% endif %}
+
+            <!-- Start companies -->
+            {% if companies %}
+                {% include 'product/search_company.html' %}
+            {% endif %}
+            <!-- End companies -->
+
+            <!-- Start categories -->
+            {% if categories %}
+                {% include 'product/search_category.html' %}
+            {% endif %}
+            <!-- End categories -->
+
+            <!--Start Products-->
+            {% if products and query %}
+                {% include 'product/search_product.html' %}
+            {% elif products %}
+            <!-- Start  products search-->
+            <div class="products col-12">
+                <div class="row">
+                    <div class="col-12 page-title">
+                        <h2 class="">{{ category.name }} </h2>
+                    </div>
+                    {% for product in products %}
+                    <div class="col-12 col-xl-6">
+                        <div class="product">
+                            <div class="product-img">
+                                <img src="{{ product.image.url }}">
+                            </div>
+                            <div class="product-data">
+                                <h3 class="">
+                                    <span class="">اسم المنتج:</span>
+                                    <span class="">{{ product.name }}</span>
+                                </h3>
+                                <p class="model">
+                                    <span class="">الطراز:</span>
+                                    <span class="">{{ product.model }}</span>
+                                </p>
+                                <p class="order-code">
+                                    <span class="">الكود:</span>
+                                    <span class="">{{ product.code }}</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+            <!-- End  products-->            
+        </div>
+    </div>
+</div>
+
+<!--Start Pagination-->
+{% if not query and products.has_other_pages%}
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+        {% if products.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ products.previous_page_number }}">السابق</a>
+            </li>
+        {% endif %}
+        
+        {% for i in products.paginator.page_range %}
+            {% if products.number == i %}
+                <li class="page-item active"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+            {% elif i > products.number|add:'-3' and i < products.number|add:'3' %}
+                <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+            {% endif %}
+        {% endfor %}
+
+        {% if products.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ products.next_page_number }}">التالى</a>
+            </li>
+        {% endif %}
+    </ul>
+</nav>
+{% elif query and companies.has_other_pages or categories.has_other_pages or products.has_other_pages %}
+    {% include 'product/search_pagination.html' %}
+{% endif %}
+
+<!--End Pagination-->
+
+{% endblock content %}

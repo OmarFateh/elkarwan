@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    
+    <title>Clients</title>
+
+{% endblock title %}
+
+{% block nav-client %}
+    active
+{% endblock nav-client %}
+
+{% block content %}
+
+<!-- Start clients -->
+
+<div class="clients">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 page-title wow flipInX">
+                <h2>عملاؤنا</h2>
+            </div>
+            {% if not clients %}
+                <h2 class="no-results-msg">لا يوجد عملاء...</h2>
+            {% else %}    
+            <div class="clients-data row no-gutters">
+                {% for client in clients %}
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 clients-block wow {% cycle 'slideInLeft' 'slideInUp' 'slideInRight' 'slideInDown' 'slideInRight'%}">
+                        <img src="{{ client.image.url }}">
+                    </div>
+                {% endfor %}
+            </div>
+            {% endif%}
+        </div>
+    </div>
+</div>
+
+
+<!-- End clients -->
+
+<!--Start Pagination-->
+{% if clients.has_other_pages%}
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+        {% if clients.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ clients.previous_page_number }}">السابق</a>
+            </li>
+        {% endif %}
+        
+        {% for i in clients.paginator.page_range %}
+            {% if clients.number == i %}
+                <li class="page-item active"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+            {% else %}
+                <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+            {% endif %}
+        {% endfor %}
+
+        {% if clients.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ clients.next_page_number }}">التالى</a>
+            </li>
+        {% endif %}
+    </ul>
+</nav>
+{% endif %}
+
+<!--End Pagination-->
+
+{% endblock content %}
+

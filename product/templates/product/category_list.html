@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load product_tags %}
+
+{% block title %}
+    <title>Categories</title>
+{% endblock title %}
+
+{% block nav-product %}
+    active
+{% endblock nav-product %}
+
+{% block content %}
+
+<div class="categories">
+    <div class="px-5">
+        <div class="row no-gutters">
+
+            <!-- Start search-form -->
+            {% include 'product/search_form.html' %}
+            <!-- End search-form -->
+
+            {% if query %}
+                {% if not companies and not categories and not products %}
+                    <h2 class="no-results-msg">لم يتم العثور على أى نتائج...</h2>
+                {% endif%}
+            {% else %}
+                {% if not categories %}
+                    <div class="products col-12">
+                        <div class="row">
+                            <div class="col-12 page-title">
+                                <h2 class="">منتجات شركة {{ company.name|title }}</h2>
+                            </div>
+                            <h2 class="no-products-msg">لا توجد منتجات فى هذه الشركة...</h2>
+                        </div>  
+                    </div>          
+                {% endif%}
+            {% endif %}
+
+
+            <!-- Start companies -->
+            {% if companies %}
+                {% include 'product/search_company.html' %}
+            {% endif %}
+            <!-- End companies -->
+
+            <!-- Start categories -->
+            {% if categories %}
+            <div class="col-12 page-title wow flipInX">
+                {% if not query %}
+                <h2 class="">منتجات شركة {{ company.name|title }}</h2>
+                {% else %}
+                <h2 class="">الأقسام</h2>
+                {% endif %}
+            </div>
+            <div class="categories-data row no-gutters">
+                {% for category in categories %}
+                <a href="{% url 'product:product-list' category.company.slug category.slug %}"
+                    class="col-12 col-md-4 col-lg-3 category-block px-2 wow {% cycle 'slideInLeft' 'slideInUp' 'slideInRight' 'slideInDown' 'slideInRight'%}">
+                    <i class="fas fa-{{ category.icon_type }}"></i>
+                    {% if query %}
+                    <h3> شركة {{ category.company.name }}</h3>
+                    {% endif %}
+                    <h3> {{ category.name }}</h3>
+                </a>
+                {% endfor %}
+            </div>
+            {% endif %}
+            <!-- End categories -->
+
+            <!--Start Products-->
+            {% if products %}
+                {% include 'product/search_product.html' %}
+            {% endif %}
+            <!--End Products-->
+
+        </div>
+    </div>
+</div>
+
+
+<!--Start Pagination-->
+{% if not query and categories.has_other_pages%}
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+        {% if categories.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ categories.previous_page_number }}">السابق</a>
+            </li>
+        {% endif %}
+
+        {% for i in categories.paginator.page_range %}
+            {% if categories.number == i %}
+                <li class="page-item active"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+            {% elif i > categories.number|add:'-3' and i < categories.number|add:'3' %}
+                <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+            {% endif %}
+        {% endfor %}
+
+        {% if categories.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ categories.next_page_number }}">التالى</a>
+            </li>
+        {% endif %}
+    </ul>
+</nav>
+{% elif query and companies.has_other_pages or categories.has_other_pages or products.has_other_pages %}
+    {% include 'product/search_pagination.html' %}
+{% endif %}
+<!--End Pagination-->
+
+
+{% endblock content %}
