@@ -25,7 +25,7 @@ SECRET_KEY = 'b12a@+!wvp*vl8cp9&+l8!4w$fvj$!!7awwrp!3!3*n=42m*ng'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', '164.90.209.66']
+ALLOWED_HOSTS = ['127.0.0.1', '164.90.209.66', 'www.elkarwansupplies.com', 'elkarwansupplies.com']
 
 
 # Application definition
