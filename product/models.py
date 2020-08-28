@@ -18,14 +18,14 @@ def category_image_upload_to(instance, filename):
     """
     Upload the category image into the path and return the uploaded image path.
     """
-    path = f"categories/{instance.name}/{filename}"
+    path = f"companies/{instance.company}/{instance.name}/{filename}"
     return path
 
 def product_image_upload_to(instance, filename):
     """
     Upload the product image into the path and return the uploaded image path.
     """
-    path = f"products/{instance.name}/{filename}"
+    path = f"companies/{instance.company}/{instance.category}/{instance.name}/{filename}"
     return path
 
 class Company(models.Model):
