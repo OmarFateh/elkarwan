@@ -103,6 +103,7 @@ ul li {
   min-height: 200px;
   margin-top: 100px;
   font-size: 34px;
+  text-align: center;
 }
 
 .no-products-msg {
@@ -1023,7 +1024,6 @@ img.logo {
     align-items: center;
     justify-content: center;
     border-left: .5px solid #ccc;
-
   }
 }
 
@@ -1249,10 +1249,16 @@ img.logo {
 
 .footer {
   background: url(../images/footer.png);
-  padding: 60px 0 40px;
+  padding: 50px 0 40px;
   box-shadow: 10px 5px 10px 0px #cccccc8a;
   margin-bottom: 3px;
   text-align: right;
+}
+
+@media(max-width:767.99px) {
+  .footer {
+    padding: 40px 0;
+  }
 }
 
 .footer .fo-about img.footer-logo {

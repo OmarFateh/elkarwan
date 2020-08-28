@@ -45,7 +45,7 @@
 	<nav class="navbar navbar-expand-lg navbar-light">
 		<div class="container px-0">
 
-			<a class="navbar-brand" href="index.html">
+			<a class="navbar-brand" href="{% url 'home:home' %}">
 				<img class="logo" src="{% static 'images/logo.png' %}">
 				<span class="nav-title">الكروان</span>
 			</a>
@@ -94,7 +94,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-12 col-lg-5 fo-about">
-					<a href="index.html">
+					<a href="{% url 'home:home' %}">
 						<img class="footer-logo" src="{% static 'images/logo.png' %}">
 						<span class="company-name">الكروان</span>
 					</a>
@@ -155,7 +155,7 @@
 			<div class="d-flex align-items-center justify-content-between">
 				<div>
 					<h6>جميع الحقوق محفوظة.
-						<a href="">شركة الكروان</a>
+						<a href="{% url 'home:home' %}">شركة الكروان</a>
 						&copy; 2020 تصميم
 						<a href="https://www.behance.net/ahmedfateh" target="_blank"> Fateh</a>
 					</h6>
