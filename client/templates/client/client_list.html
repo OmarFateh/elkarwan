@@ -24,7 +24,7 @@
             {% if not clients %}
                 <h2 class="no-results-msg">لا يوجد عملاء...</h2>
             {% else %}    
-            <div class="clients-data row no-gutters w-100">
+            <div class="clients-data row no-gutters-md w-100">
                 {% for client in clients %}
                     <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 clients-block wow {% cycle 'slideInLeft' 'slideInUp' 'slideInRight' 'slideInDown' 'slideInRight'%}">
                         <img src="{{ client.image.url }}">
