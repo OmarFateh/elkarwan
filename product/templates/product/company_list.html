@@ -14,8 +14,8 @@
 {% block content %}
 
 <div class="companies">
-    <div class="mx-5">
-        <div class="row no-gutters">
+    <div class="mx-0 mx-md-5">
+        <div class="row no-gutters-md">
             
             <!-- Start search-form -->
             {% include 'product/search_form.html' %}
@@ -46,8 +46,7 @@
                 {% include 'product/search_category.html' %}
             {% endif %}
             <!-- End categories-->
-
-            
+      
             <!--Start Products-->
             {% if products %}
                 {% include 'product/search_product.html' %}
@@ -56,7 +55,6 @@
         </div>
     </div>
 </div>
-
 
 <!--Start Pagination-->
 {% if not query and companies.has_other_pages%}

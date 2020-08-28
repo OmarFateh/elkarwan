@@ -110,30 +110,30 @@ ul li {
 
 /*Start Search box */
 
-.serch-section {
+.search-section {
   display: flex;
   padding-top: 30px;
   justify-content: flex-end;
 }
 
-.serch-section input {
+.search-section input {
   border-radius: 0 4px 4px 0;
   padding-right: 10px;
 }
 
-.serch-section button:focus, .serch-section button:active {
+.search-section button:focus, .search-section button:active {
   border: none !important;
   box-shadow: none !important;
   outline: none !important;
 }
 
-.serch-section input:focus, .serch-section input:active {
+.search-section input:focus, .search-section input:active {
   border: 1px solid #989393 !important;
   box-shadow: none !important;
   outline: none !important;
 }
 
-.serch-section button {
+.search-section button {
   border-radius: 4px 0 0 4px;
 }
 
