@@ -9,19 +9,24 @@
                 <div class="product-img">
                     <img src="{{ product.image.url }}">
                 </div>
-                <div class="product-data w-100 pl-3 pl-xl-5 py-3">
+                <div class="product-data w-100 pl-3 pl-xl-5 py-2">
                     <h3 class="">
                         <span class="">الشركة:</span>
-                        <span class="">{{ product.company.name }}</span>
+                        <span class="">{{ product.company.name|upper }}</span>
                     </h3>
                     <h3 class="">
                         <span class="">القسم:</span>
-                        <span class="">{{ product.category.name }}</span>
+                        <span class="">{{ product.category.name|title }}</span>
                     </h3>
 
                     <h3 class="">
-                        <span class="">اسم المنتج:</span>
-                        <span class="">{{ product.name }}</span>
+                        <span class="">القسم الفرعى:</span>
+                        <span class="">{{ product.subcategory.name|title }}</span>
+                    </h3>
+
+                    <h3 class="">
+                        <span class="">المنتج:</span>
+                        <span class="">{{ product.name|title }}</span>
                     </h3>
                     <p class="model">
                         <span class="">طراز:</span>

@@ -22,7 +22,7 @@
             <!-- End search-form -->
             
             {% if query %}
-                {% if not companies and not categories and not products %}
+                {% if not companies and not categories and not subcategories and not products %}
                 <h2 class="no-results-msg">لم يتم العثور على أى نتائج...</h2>
                 {% endif%}
             {% else %}
@@ -30,7 +30,7 @@
                 <div class="products col-12">
                     <div class="row">
                         <div class="col-12 page-title">
-                            <h2 class="">{{ category.name }} </h2>
+                            <h2 class="">{{ subcategory.name|title }} </h2>
                         </div>
                         <h2 class="no-products-msg">لا توجد منتجات فى هذا القسم...</h2>
                     </div>  
@@ -50,6 +50,12 @@
             {% endif %}
             <!-- End categories -->
 
+            <!--Start Subcategories-->
+            {% if subcategories %}
+                {% include 'product/search_subcategory.html' %}
+            {% endif %}
+            <!--End Subcategories-->
+
             <!--Start Products-->
             {% if products and query %}
                 {% include 'product/search_product.html' %}
@@ -58,7 +64,7 @@
             <div class="products col-12">
                 <div class="row">
                     <div class="col-12 page-title">
-                        <h2 class="">{{ category.name }} </h2>
+                        <h2 class="">{{ subcategory.name|title }} </h2>
                     </div>
                     {% for product in products %}
                     <div class="col-12 col-xl-6">
@@ -68,7 +74,7 @@
                             </div>
                             <div class="product-data">
                                 <h3 class="">
-                                    <span class="">اسم المنتج:</span>
+                                    <span class="">المنتج:</span>
                                     <span class="">{{ product.name }}</span>
                                 </h3>
                                 <p class="model">
@@ -116,7 +122,7 @@
         {% endif %}
     </ul>
 </nav>
-{% elif query and companies.has_other_pages or categories.has_other_pages or products.has_other_pages %}
+{% elif query and companies.has_other_pages or categories.has_other_pages or subcategories.has_other_pages or products.has_other_pages %}
     {% include 'product/search_pagination.html' %}
 {% endif %}
 

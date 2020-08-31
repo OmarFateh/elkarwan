@@ -18,8 +18,7 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
-from product import views
-from product.custom_admin.views import get_category
+from product.custom_admin.views import get_category, get_subcategory
 
 # custom 404 error page
 handler404 = 'home.views.custom_page_not_found_view'
@@ -40,7 +39,10 @@ urlpatterns = [
     # product category dropdown
     path('getCategory/', get_category, name='category'), 
 
-     # client
+    # product subcategory dropdown
+    path('getSubcategory/', get_subcategory, name='subcategory'),
+
+    # client
     path('clients/', include(('client.urls', 'client'), namespace='client')),
 
     # contact

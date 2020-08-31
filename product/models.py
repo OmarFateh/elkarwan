@@ -14,13 +14,6 @@ def company_image_upload_to(instance, filename):
     path = f"companies/{instance.name}/{filename}"
     return path
 
-def category_image_upload_to(instance, filename):
-    """
-    Upload the category image into the path and return the uploaded image path.
-    """
-    path = f"companies/{instance.company}/{instance.name}/{filename}"
-    return path
-
 def product_image_upload_to(instance, filename):
     """
     Upload the product image into the path and return the uploaded image path.
@@ -70,7 +63,6 @@ class Category(models.Model):
     )  
 
     name       = models.CharField(max_length=255)
-    image      = models.ImageField(upload_to=category_image_upload_to, null=True, blank=True)
     icon_type  = models.CharField('Icon', max_length=15, choices=ICON_TYPE)
     company    = models.ForeignKey(Company, on_delete=models.CASCADE, related_name='categories')
     slug       = models.SlugField(unique=True, allow_unicode=True, null=True, blank=True)
@@ -89,20 +81,54 @@ class Category(models.Model):
         # Override the save method and slugify the category name before saving. 
         if not self.slug:
             self.slug = unique_slug_generator(self)
-        super(Category, self).save(*args, **kwargs)     
+        super(Category, self).save(*args, **kwargs) 
+
+    def get_absloute_url(self):
+        # Return the absloute url of category's subcategories. 
+        return reverse('product:subcategory-list', kwargs={'comapny_slug':self.company.slug, 'category_slug':self.slug})
+
+class Subcategory(models.Model):
+    """
+    Subcategory model.
+    """
+    name       = models.CharField(max_length=255)
+    company    = models.ForeignKey(Company, on_delete=models.CASCADE, related_name='subcategories')
+    category   = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='subcategories') 
+    slug       = models.SlugField(unique=True, allow_unicode=True, null=True, blank=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    timestamp  = models.DateTimeField(auto_now_add=True)   
+
+    class Meta:
+        verbose_name = 'Subcategory'
+        verbose_name_plural = 'Subcategories'
+
+    def __str__(self):
+        # return the subcategory name
+        return self.name 
+
+    def save(self, *args, **kwargs):
+        # Override the save method and slugify the subcategory name before saving. 
+        if not self.slug:
+            self.slug = unique_slug_generator(self)
+        super(Subcategory, self).save(*args, **kwargs) 
+
+    def get_absloute_url(self):
+        # Return the absloute url of category's subcategories. 
+        return reverse('product:product-list', kwargs={'comapny_slug':self.company.slug, 'category_slug':self.category.slug, 'subcategory_slug':self.slug})    
      
 class Product(models.Model):
     """
     Product model.
     """
-    name       = models.CharField(max_length=255)
-    image      = ResizedImageField(size=[160, 160], quality=100, upload_to=product_image_upload_to)
-    company    = models.ForeignKey(Company, on_delete=models.CASCADE, related_name='products')
-    category   = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products') 
-    model      = models.CharField(max_length=255)
-    code       = models.CharField(max_length=255, unique=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    timestamp  = models.DateTimeField(auto_now_add=True)     
+    name        = models.CharField(max_length=255)
+    image       = ResizedImageField(size=[160, 160], quality=100, upload_to=product_image_upload_to)
+    company     = models.ForeignKey(Company, on_delete=models.CASCADE, related_name='products')
+    category    = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products')
+    subcategory = models.ForeignKey(Subcategory, on_delete=models.CASCADE, related_name='products') 
+    model       = models.CharField(max_length=255)
+    code        = models.CharField(max_length=255, unique=True)
+    updated_at  = models.DateTimeField(auto_now=True)
+    timestamp   = models.DateTimeField(auto_now_add=True)     
 
     class Meta:
         verbose_name = 'Product'

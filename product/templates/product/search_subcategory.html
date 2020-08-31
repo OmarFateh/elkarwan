@@ -1,0 +1,12 @@
+<div class="col-12 page-title wow flipInX">
+    <h2 class="">الأقسام الفرعية</h2>
+</div>
+<div class="categories-data row no-gutters">
+    {% for subcategory in subcategories %}
+    <a href="{{ subcategory.get_absloute_url }}" class="col-12 col-md-4 col-lg-3 category-block wow {% cycle 'slideInLeft' 'slideInUp' 'slideInRight' 'slideInDown' 'slideInRight'%} p-3">
+        <h3> شركة {{ subcategory.company.name|upper }}</h3>
+        <h3> قسم {{ subcategory.category.name|title }}</h3>
+        <h3> {{ subcategory.name|title }}</h3>
+    </a>
+    {% endfor %}
+</div>

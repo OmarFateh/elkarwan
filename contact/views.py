@@ -21,7 +21,7 @@ def contact(request):
             email = EmailMessage(
                 f'{message_subject} | {message_name}', # subject & sender's name 
                 f'Form: {message_name} \nEmail: {message_email} \nMessage: {message}', # message
-                message_email, # from email
+                [settings.EMAIL_HOST_USER], # from email
                 [settings.EMAIL_HOST_USER], # to email list
                 reply_to = [message_email,],
             )

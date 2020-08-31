@@ -25,11 +25,11 @@
                     <h2 class="no-results-msg">لم يتم العثور على أى نتائج...</h2>
                 {% endif%}
             {% else %}
-                {% if not categories %}
+                {% if not subcategories %}
                     <div class="products col-12">
                         <div class="row">
                             <div class="col-12 page-title">
-                                <h2 class="">منتجات شركة {{ company.name|upper }}</h2>
+                                <h2 class=""> {{ category.name|title }}</h2>
                             </div>
                             <h2 class="no-products-msg">لا توجد منتجات فى هذه الشركة...</h2>
                         </div>  
@@ -43,36 +43,38 @@
                 {% include 'product/search_company.html' %}
             {% endif %}
             <!-- End companies -->
-
-            <!-- Start categories -->
+            
+            <!-- Start categories-->
             {% if categories %}
+                {% include 'product/search_category.html' %}
+            {% endif %}
+            <!-- End categories-->
+
+            <!-- Start subcategories -->
+            {% if subcategories %}
             <div class="col-12 page-title wow flipInX">
                 {% if not query %}
-                <h2 class="">منتجات شركة {{ company.name|upper }}</h2>
+                <h2 class="">{{ category.name|title }}</h2>
                 {% else %}
-                <h2 class="">الأقسام</h2>
+                <h2 class="">الأقسام الفرعية</h2>
                 {% endif %}
             </div>
             <div class="categories-data row no-gutters">
-                {% for category in categories %}
-                <a href="{{ category.get_absloute_url }}"
+                {% for subcategory in subcategories %}
+                <a href="{{ subcategory.get_absloute_url }}"
                     class="col-12 col-md-4 col-lg-3 category-block px-2 wow {% cycle 'slideInLeft' 'slideInUp' 'slideInRight' 'slideInDown' 'slideInRight'%}">
-                    <i class="fas fa-{{ category.icon_type }}"></i>
+                    <!-- <i class="fas fa-{{ category.icon_type }}"></i> -->
                     {% if query %}
-                    <h3> شركة {{ category.company.name|upper }}</h3>
+                    <h3> شركة {{ subcategory.company.name|upper }}</h3>
+                    <h3> قسم {{ subcategory.category.name|title }}</h3>
                     {% endif %}
-                    <h3> {{ category.name|title }}</h3>
+                    <h3> {{ subcategory.name|title }}</h3>
+                    <p class="prodcts-count">&#40;{{ subcategory.products.count }}&#41;</p>
                 </a>
                 {% endfor %}
             </div>
             {% endif %}
-            <!-- End categories -->
-
-            <!--Start Subcategories-->
-            {% if subcategories %}
-                {% include 'product/search_subcategory.html' %}
-            {% endif %}
-            <!--End Subcategories-->
+            <!-- End subcategories -->
 
             <!--Start Products-->
             {% if products %}
@@ -86,26 +88,26 @@
 
 
 <!--Start Pagination-->
-{% if not query and categories.has_other_pages%}
+{% if not query and subcategories.has_other_pages%}
 <nav aria-label="Page navigation example">
     <ul class="pagination justify-content-center">
-        {% if categories.has_previous %}
+        {% if subcategories.has_previous %}
             <li class="page-item">
-                <a class="page-link" href="?page={{ categories.previous_page_number }}">السابق</a>
+                <a class="page-link" href="?page={{ subcategories.previous_page_number }}">السابق</a>
             </li>
         {% endif %}
 
-        {% for i in categories.paginator.page_range %}
-            {% if categories.number == i %}
+        {% for i in subcategories.paginator.page_range %}
+            {% if subcategories.number == i %}
                 <li class="page-item active"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
-            {% elif i > categories.number|add:'-3' and i < categories.number|add:'3' %}
+            {% elif i > subcategories.number|add:'-3' and i < subcategories.number|add:'3' %}
                 <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
             {% endif %}
         {% endfor %}
 
-        {% if categories.has_next %}
+        {% if subcategories.has_next %}
             <li class="page-item">
-                <a class="page-link" href="?page={{ categories.next_page_number }}">التالى</a>
+                <a class="page-link" href="?page={{ subcategories.next_page_number }}">التالى</a>
             </li>
         {% endif %}
     </ul>

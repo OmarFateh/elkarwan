@@ -10,28 +10,41 @@
             <li class="page-item">
                 <a class="page-link" href="{% relative_url categories.previous_page_number 'page' request.GET.urlencode %}">السابق</a>
             </li>
+        {% elif subcategories.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="{% relative_url subcategories.previous_page_number 'page' request.GET.urlencode %}">السابق</a>
+            </li>    
         {% elif products.has_previous %}
             <li class="page-item">
                 <a class="page-link" href="{% relative_url products.previous_page_number 'page' request.GET.urlencode %}">السابق</a>
             </li>
         {% endif %}
         
-        {% if not companies and not categories and products %}
+        {% if not companies and not categories and not subcategories and products %}  
             {% get_max products.paginator.num_pages as max_range %}
-        {% elif not companies and categories and products %} 
+        {% elif not companies and categories and not subcategories and products %} 
             {% get_max categories.paginator.num_pages products.paginator.num_pages as max_range %}
-        {% elif companies and not categories and products %}  
+        {% elif companies and not categories and not subcategories and products %}  
             {% get_max companies.paginator.num_pages products.paginator.num_pages as max_range %}
+        {% elif not companies and not categories and subcategories and products %}  
+            {% get_max subcategories.paginator.num_pages products.paginator.num_pages as max_range %}    
+        
+        {% elif not companies and not categories and subcategories and not products %}
+            {% get_max subcategories.paginator.num_pages as max_range %}
+        {% elif not companies and categories and subcategories and not products %}  
+            {% get_max categories.paginator.num_pages subcategories.paginator.num_pages as max_range %}
+        {% elif companies and not categories and subcategories and not products %}  
+            {% get_max companies.paginator.num_pages subcategories.paginator.num_pages as max_range %}    
 
-        {% elif not companies and categories and not products %}
+        {% elif not companies and categories and not subcategories and not products %}
             {% get_max categories.paginator.num_pages as max_range %}
-        {% elif companies and categories and not products %}  
+        {% elif companies and categories and not subcategories and not products %}  
             {% get_max companies.paginator.num_pages categories.paginator.num_pages as max_range %}
         
-        {% elif companies and not categories and not products %}
+        {% elif companies and not categories and not subcategories and not products %}
             {% get_max companies.paginator.num_pages as max_range %}
-        {% elif companies and categories and products %}  
-            {% get_max companies.paginator.num_pages categories.paginator.num_pages products.paginator.num_pages as max_range %}
+        {% elif companies and categories and subcategories and products %}  
+            {% get_max companies.paginator.num_pages categories.paginator.num_pages subcategories.paginator.num_pages products.paginator.num_pages as max_range %}
         {% endif %}
 
         {% if companies.paginator.num_pages == max_range %}
@@ -50,6 +63,14 @@
                     <li class="page-item"><a class="page-link" href="{% relative_url i 'page' request.GET.urlencode %}">{{ i }}</a></li>
                 {% endif %}
             {% endfor %}
+        {% elif subcategories.paginator.num_pages == max_range %}
+            {% for i in subcategories.paginator.page_range %}
+                {% if subcategories.number == i %}
+                    <li class="page-item active"><a class="page-link" href="{% relative_url i 'page' request.GET.urlencode %}">{{ i }}</a></li>
+                {% elif i > subcategories.number|add:'-3' and i < subcategories.number|add:'3' %}
+                    <li class="page-item"><a class="page-link" href="{% relative_url i 'page' request.GET.urlencode %}">{{ i }}</a></li>
+                {% endif %}
+            {% endfor %}    
         {% else %}
             {% for i in products.paginator.page_range %}
                 {% if products.number == i %}
@@ -68,6 +89,10 @@
             <li class="page-item">
                 <a class="page-link" href="{% relative_url categories.next_page_number 'page' request.GET.urlencode %}">التالى</a>
             </li>
+        {% elif subcategories.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="{% relative_url subcategories.next_page_number 'page' request.GET.urlencode %}">التالى</a>
+            </li>    
         {% elif products.has_next %}
             <li class="page-item">
                 <a class="page-link" href="{% relative_url products.next_page_number 'page' request.GET.urlencode %}">التالى</a>
