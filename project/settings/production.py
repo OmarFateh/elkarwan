@@ -33,7 +33,6 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-# ALLOWED_HOSTS = ['127.0.0.1', '164.90.209.66', 'www.elkarwansupplies.com', 'elkarwansupplies.com']
 ALLOWED_HOSTS = tuple(env.list('ALLOWED_HOSTS', default=[]))
 
 

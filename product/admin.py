@@ -58,9 +58,8 @@ class ProductAdmin(DontLog, admin.ModelAdmin):
     """
     Product model admin.
     """
-    # form           = ProductAdminForm
     date_hierarchy = 'timestamp'
-    list_display   = ['name', 'company', 'category', 'model', 'code', 'timestamp'] 
+    list_display   = ['name', 'company', 'category', 'subcategory', 'model', 'code'] 
     list_filter    = [('company', ProductFilter), 'timestamp']
     search_fields  = ['name', 'model', 'code']
     ordering       = ['-timestamp']

@@ -21,27 +21,7 @@ class ProductAdminFormMixin(forms.ModelForm):
             except (ValueError, TypeError):
                 pass
         elif self.instance.pk:
-            self.fields['category'].queryset = self.instance.company.categories.order_by('name')
-
-        self.fields['subcategory'].queryset = Subcategory.objects.none()
-        if 'category' in self.data:
-            try:
-                category_id = int(self.data.get('category'))
-                self.fields['subcategory'].queryset = Subcategory.objects.filter(category_id=category_id).order_by('name')
-            except (ValueError, TypeError):
-                pass
-        elif self.instance.pk:
-            self.fields['subcategory'].queryset = self.instance.category.subcategories.order_by('name')    
-
-
-class ProductAdminForm(ProductAdminFormMixin, forms.ModelForm):
-    """
-    Product admin model form.
-    """
-    class Meta:
-        model  = Product
-        fields = ['name', 'image', 'company', 'category', 'subcategory', 'model', 'code']
-
+            self.fields['category'].queryset = self.instance.company.categories.order_by('name')          
 
 class ProductFilterForm(ProductAdminFormMixin, forms.ModelForm):
     """
