@@ -24,20 +24,14 @@ class CategoryInline(admin.TabularInline):
     fields = ['name', 'company', 'icon_type']
     extra = 1
 
-class SubcategoryInline(admin.TabularInline):
-    """
-    Subcategory tabular inline admin.
-    """
-    model  = Subcategory
-    form   = SubcategoryAdminForm
-    fields = ['name', 'company', 'category']
-    extra  = 1
-
 class SubcategoryAdmin(DontLog, admin.ModelAdmin):
     """
     Subcategory model admin.
     """
     form = SubcategoryAdminForm
+    list_display   = ['name', 'company', 'category'] 
+    list_filter    = ['timestamp']
+    search_fields  = ['name', 'company', 'category']
 
 class CompanyAdmin(DontLog, admin.ModelAdmin):
     """
